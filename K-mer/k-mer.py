@@ -1,3 +1,4 @@
+#Writting a Python program to count k-mers (substring of length k) in DNA sequencing data.
 k=4
 seq='ACGGGGGACGGTCT'
 mydict=dict() #empty dictionary
