@@ -1,3 +1,6 @@
+#This Python script creates 2 lists from a data file I have.
+#One list will contain all the files that start with the term ‘stats’ in it.
+#The second list will contain all files that have the term ‘thresholds.bbt.db’ in it. 
 #!/Library/Frameworks/Python.framework/Versions/3.6/bin/python3
 #print the python version
 import sys
