@@ -6,7 +6,6 @@ with open("stats-simple.q2.txt", "r") as f:
             file.write(line)
 file.close()
 
-
 file2= open("output_2.tsv","w")
 with open("stats-simple.q3.txt", "r") as f2:
     for line2 in f2:
@@ -22,7 +21,6 @@ with open("output_1.tsv", "r") as file1:
     csvreader_1=csv.reader(file1, delimiter='\t')
     for row in csvreader_1:
         dict_1[row[1], row[2]] = [row[3], row[4]]
-
     # print(dict_1)
 
 with open("output_2.tsv", "r") as file4:
