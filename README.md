@@ -4,7 +4,7 @@ This folder includes my volunteery small projects accomplished at GSC along with
 GSC volunteery mini projects: GSC.py , sequence.p, stat.py
 Other small projects: GSC_Content , K-mer 
 
-GSC.py:
+gsc.py:
     #This Python script creates 2 lists from a data file I have.
     One list will contain all the files that start with the term ‘stats’ in it.
     The second list will contain all files that have the term ‘thresholds.bbt.db’ in it. 
