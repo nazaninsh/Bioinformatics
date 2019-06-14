@@ -2,7 +2,7 @@
 Bioinformatics Projects
 This folder includes my volunteery small projects accomplished at GSC along with some other small projects
 GSC volunteery mini projects: GSC.py , sequence.p, stat.py
-Other small projects: GSC_Content , K-mer 
+Other small projects: GC_Content , K-mer 
 
 gsc.py:
     #This Python script creates 2 lists from a data file I have.
@@ -22,7 +22,7 @@ stat.py:
      In this Python script I used dictionary and CSV reader in order to compare these numbers and giving out the difference        between them.
      
  
- GSC_Content:
+ GC_Content:
      #find GC content of brca1 gene
      brca1 gene is the one for breast cancer
      downloading the FASTA format of the gene from NCBI
