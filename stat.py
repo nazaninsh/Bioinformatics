@@ -32,12 +32,25 @@ with open("output_2.tsv", "r") as file4:
 
 set_dict_1=set(dict_1)#print only keys
 set_dict_2=set(dict_2)
-for name in set_dict_1.intersection(set_dict_2):#print common keys
-    print(dict_1[name], dict_2[name])#common values
-    a = dict_1[name]# common values
-    b = dict_2[name]#common values
+for common_keys in set_dict_1.intersection(set_dict_2):#print common keys
+    (common_keys, dict_1[common_keys], dict_2[common_keys])#common keys and common values
+    a = dict_1[common_keys]# common values
+    b = dict_2[common_keys]#common values
 
-    a2= (map(float, a))#turning str to float
+    a2= (map(float, a))#str to float
     b2= (map(float, b))
-    
-    print(map(float.__sub__, a2, b2))#subtraction of common values
+
+
+    for i in range(len(b2)):
+        diff=b2[i]-a2[i]
+        round= ("%0.2f"%diff)
+        increase_percent=0
+        if a2[i]!=0:
+            increase_percent= diff/a2[i]*100
+        if i==0 and (increase_percent > 10 or increase_percent < -10):
+            print("diff="+str(common_keys)+":"+" 95%ile:"+str(diff)+" round="+str(round)+ " percent="+str("%0.2f"%increase_percent))
+
+        if i==1 and (increase_percent > 10 or increase_percent < -10):
+            print("diff="+str(common_keys)+":"+" 5%ile:"+str(diff)+" round="+str(round)+ " percent="+str("%0.2f"%increase_percent))
+
+
