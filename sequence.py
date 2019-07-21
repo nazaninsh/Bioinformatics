@@ -10,7 +10,7 @@ print(a)
 
 import re
 import csv
-seqout = open(sys.argv[2], 'a')
+seqout = open(sys.argv[2], 'w')
 with open(sys.argv[1],'r') as f:
     reader = csv.reader(f, delimiter='\t')
     count_line = 0
