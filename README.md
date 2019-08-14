@@ -20,9 +20,9 @@ sequence.py
 
 stat.py
 =
-     I am comparing the 5 and 95 percentile of 2 files which are the results of shotgun sequencing in different period of time. Only the lines starting with the term "dataline" needs to be compared.
+     I am comparing the 5 and 95 percentile of the library counts of 2 files which are the results of shotgun sequencing in different period of time. Only the lines starting with the term "dataline" needs to be compared.
      lines starting with the term dataline have 7 columns.
-     In this Python script I used dictionary and CSV reader in order to compare these numbers and giving out the difference        between them.
+     In this Python script I used dictionary, CSV reader, for loops and if statements in order to compare these numbers and giving out the difference between them.
      
  
  GC_Content.py
