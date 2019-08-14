@@ -17,40 +17,40 @@ file2.close()
 #row number 3 nd 4 are the values all together
 import csv
 with open("output_1.tsv", "r") as file1:
-    dict_1={}
+    dict_q2={}
     csvreader_1=csv.reader(file1, delimiter='\t')
     for row in csvreader_1:
-        dict_1[row[1], row[2]] = [row[3], row[4]]
-    # print(dict_1)
+        dict_q2[row[1], row[2]] = [row[3], row[4]]
+    # print(dict_q2)
 
-with open("output_2.tsv", "r") as file4:
-    dict_2={}
+with open("output_q3.tsv", "r") as file4:
+    dict_q3={}
     csvreader_2=csv.reader(file4, delimiter='\t')
     for row in csvreader_2:
-        dict_2[row[1], row[2]] = [row[3], row[4]]
-    # print(dict_2)
+        dict_q3[row[1], row[2]] = [row[3], row[4]]
+    # print(dict_q3)
 
-set_dict_1=set(dict_1)#print only keys
-set_dict_2=set(dict_2)
-for common_keys in set_dict_1.intersection(set_dict_2):#print common keys
-    (common_keys, dict_1[common_keys], dict_2[common_keys])#common keys and common values
-    a = dict_1[common_keys]# common values
-    b = dict_2[common_keys]#common values
+set_dict_q2=set(dict_q2)#print only keys
+set_dict_q3=set(dict_q3)
+for common_keys in set_dict_q2.intersection(set_dict_q3):#print common keys
+    (common_keys, dict_q2[common_keys], dict_q3[common_keys])#common keys and common values
+    
+    common_val_q2= (map(float, dict_q2[common_keys]))# common values and also turning str to float
+	common_val_q3= (map(float, dict_q3[common_keys]))#common values and also turning str to float
+	#print(common_val_q2)
+	#print(common_val_q3)
 
-    a2= (map(float, a))#str to float
-    b2= (map(float, b))
 
-
-    for i in range(len(b2)):
-        diff=b2[i]-a2[i]
+    for i in range(len(common_val_q3)):
+        diff=common_val_q3[i]-common_val_q2[i]
         round= ("%0.2f"%diff)
         increase_percent=0
-        if a2[i]!=0:
-            increase_percent= diff/a2[i]*100
+        if common_val_q2[i]!=0:
+            increase_percent= diff/common_val_q2[i]*100
         if i==0 and (increase_percent > 10 or increase_percent < -10):
-            print("diff="+str(common_keys)+":"+" 95%ile:"+str(diff)+" round="+str(round)+ " percent="+str("%0.2f"%increase_percent))
+            print("diff=\t" + "95%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + "\t" + str(common_keys))
 
         if i==1 and (increase_percent > 10 or increase_percent < -10):
-            print("diff="+str(common_keys)+":"+" 5%ile:"+str(diff)+" round="+str(round)+ " percent="+str("%0.2f"%increase_percent))
+            print("diff=\t" + "5%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent + "\t" + str(common_keys)))
 
 
