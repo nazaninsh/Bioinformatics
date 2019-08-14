@@ -48,9 +48,9 @@ for common_keys in set_dict_q2.intersection(set_dict_q3):#print common keys
         if common_val_q2[i]!=0:
             increase_percent= diff/common_val_q2[i]*100
         if i==0 and (increase_percent > 10 or increase_percent < -10):
-            print("diff=\t" + "95%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + "\t" + str(common_keys))
+            print("diff=\t" + "95%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + "\t" + str(common_keys)+"\n")
 
         if i==1 and (increase_percent > 10 or increase_percent < -10):
-            print("diff=\t" + "5%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent + "\t" + str(common_keys)))
+            print("diff=\t" + "5%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + "\t" + str(common_keys)+"\n")
 
 
