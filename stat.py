@@ -1,17 +1,22 @@
 #filtering the data to the ones start with 'dataline' and so making 'tsv' file out of it
+#do not display if metric is , total_reads , chastity_passed and chastity_passed_no_reagent
+count_threshold= 200
 file = open("output_q2.tsv","w")
 with open("stats.q2.txt", "r") as f:
     for line in f:
         if line.startswith("dataline"):
-            file.write(line)
-file.close()
+            if "total_reads" not in line and "chastity_passed" not in line and "chastity_passed_no_reagent" not in line:
+                file.write(line)
 
+file.close()
 
 file2= open("output_q3.tsv","w")
 with open("stats.q3.txt", "r") as f2:
     for line2 in f2:
         if line2.startswith("dataline"):
-            file2.write(line2)
+            if "total_reads" not in line2 and "chastity_passed" not in line2 and "chastity_passed_no_reagent" not in line2:
+                file2.write(line2)
+
 file2.close()
 
 #making dictionary. row number 1 and 2 are keys all together and
@@ -52,12 +57,39 @@ for common_keys in set_dict_q2.intersection(set_dict_q3):#print common keys
         increase_percent=0
         if common_val_q2[i]!=0:
             increase_percent= diff/common_val_q2[i]*100
-        if (common_val_q2[2] > 10 and common_val_q3[2] > 10):
+
+        if (common_val_q2[2] > count_threshold and common_val_q3[2] > count_threshold):
             if i==0  and (increase_percent > 10 or increase_percent < -10):
-                result.write("diff=\t" + "5%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+                # result.write("lib_q2=" + str(common_val_q2[2]) + "\t" +"lib_q3=" + str(common_val_q3[2]) + "\n")
+                result.write("diff=\t" + "\t5%ile_round:" + str(round) +"\t"+ "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + "lib_q2=" + str(common_val_q2[2]) + "\t" +"lib_q3=" + str(common_val_q3[2]) + str(common_keys)+ "\n")
             if i==1 and (increase_percent > 10 or increase_percent < -10):
-                result.write("diff=\t" + "95%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+                # result.write("lib_q2=" + str(common_val_q2[2]) + "\t" + "lib_q3=" +  str(common_val_q3[2]) + "\n")
+                result.write("diff=\t" + "\t95%ile_round:" + str(round) +"\t"+ "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + "lib_q2=" + str(common_val_q2[2]) + "\t" +"lib_q3=" + str(common_val_q3[2]) + str(common_keys)+ "\n")
 result.close()
+
+        # if common_val_q2[2] > 10 and common_val_q3[2] > 10:
+        #     if i==0  and (increase_percent > 10 or increase_percent < -10) or (i==1 and (increase_percent > 10 or increase_percent < -10)):
+        #         result.write("lib_q2=" + str(common_val_q2[2]) + "\t" +"lib_q3=" + str(common_val_q3[2]) + "\n")
+        #         result.write("diff=\t" + "\t5%ile_round:" + str(round) +"\t"+ "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+        #         result.write("diff=\t" + "\t95%ile_round:" + str(round) +"\t"+ "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+
+
+
+        # if (common_val_q2[2] > 10 and common_val_q3[2] > 10):
+        #     if i==0  and (increase_percent > 10 or increase_percent < -10):
+        #         result.write("lib_q2=" + str(common_val_q2[2]) + "\t" +"lib_q3=" + str(common_val_q3[2]) + "\n")
+        #         result.write("diff=\t" + "\t5%ile_round:" + str(round) +"\t"+ "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+        #     if i==1 and (increase_percent > 10 or increase_percent < -10):
+        #         result.write("lib_q2=" + str(common_val_q2[2]) + "\t" + "lib_q3=" +  str(common_val_q3[2]) + "\n")
+        #         result.write("diff=\t" + "\t95%ile_round:" + str(round) +"\t"+ "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+
+        # if common_val_q2[2] > 10 and common_val_q3[2] > 10 and i==0 and (increase_percent > 10 or increase_percent < -10):
+        #     result.write("lib_q2=" + str(common_val_q2[2]) + "\t" +"lib_q3=" + str(common_val_q3[2]) + "\n")
+        #     result.write("diff=\t" + "\t5%ile_round:" + str(round) +"\t"+ "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+        # if common_val_q2[2] > 10 and common_val_q3[2] > 10 and i==1 and (increase_percent > 10 or increase_percent < -10):
+        #     result.write("lib_q2=" + str(common_val_q2[2]) + "\t" + "lib_q3=" +  str(common_val_q3[2]) + "\n")
+        #     result.write("diff=\t" + "\t95%ile_round:" + str(round) +"\t"+ "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+# result.close()
 
 
 #print the percentage that are bigger than 3% on small file and then use it on the big file- and 10% on the big file..
@@ -76,7 +108,13 @@ result.close()
 # only print out the diff if both total number of lib( in 2 quarters) is greatre than 10
 
 #for Aug21:
-#1. the count of lib in each quarter in the result file1
+#1. the count of lib in each quarter in the result file
 #2. remove 5%ile and 95%ile
 #3. do not display if metric is , total_reads , chastity_passed and chastity_passed_no_reagent
 #4. rename round to 5%ile_round and 95%ile_round
+
+#for sep
+#making a test file by myself to confirm the calculation
+#1. chnage number of lib to variable
+#2. change percent diff to a variable as well
+#3. make the above variable into a command line argument using argv
