@@ -14,24 +14,32 @@ with open("stats-simple.q3.txt", "r") as f2:
             file2.write(line2)
 file2.close()
 
-#making inner dict and outer dict
+#making dictionary. row number 1 and 2 are keys all together and
+#row number 3 nd 4 are the values all together
 import csv
 with open("output_1.tsv", "r") as file1:
-    outer_dict_1={}
-    inner_dict_1={}
+    dict_1={}
     csvreader_1=csv.reader(file1, delimiter='\t')
     for row in csvreader_1:
-        inner_dict_1[row[2]] = [row[3], row[4]]#values for inner dict
-        outer_dict_1[row[1]] = inner_dict_1
+        dict_1[row[1], row[2]] = [row[3], row[4]]
 
-    print(outer_dict_1)
+    # print(dict_1)
 
 with open("output_2.tsv", "r") as file4:
-    outer_dict_2={}
-    inner_dict_2={}
+    dict_2={}
     csvreader_2=csv.reader(file4, delimiter='\t')
     for row in csvreader_2:
-        inner_dict_2[row[2]] = [row[3], row[4]]
-        outer_dict_2[row[1]] = inner_dict_2
+        dict_2[row[1], row[2]] = [row[3], row[4]]
+    # print(dict_2)
 
-    print(outer_dict_2)
+set_dict_1=set(dict_1)#print only keys
+set_dict_2=set(dict_2)
+for name in set_dict_1.intersection(set_dict_2):#print common keys
+    print(dict_1[name], dict_2[name])#common values
+    a = dict_1[name]# common values
+    b = dict_2[name]#common values
+
+    a2= (map(float, a))#turning str to float
+    b2= (map(float, b))
+    
+    print(map(float.__sub__, a2, b2))#subtraction of common values
