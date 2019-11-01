@@ -1,113 +1,56 @@
-file = open("output_1.tsv","w+")
-with open("stats.q2.txt", "r") as f:
-    # read=f.readlines()
+#filtering the data to the ones start with 'dataline' and so making 'tsv' file out of it
+file = open("output_1.tsv","w")
+with open("stats-simple.q2.txt", "r") as f:
     for line in f:
         if line.startswith("dataline"):
             file.write(line)
+file.close()
 
 
-file = open("output_2.tsv","w+")
-with open("stats.q3.txt", "r") as f:
-    # read=f.readlines()
-    for line in f:
-        if line.startswith("dataline"):
-            file.write(line)
+file2= open("output_2.tsv","w")
+with open("stats-simple.q3.txt", "r") as f2:
+    for line2 in f2:
+        if line2.startswith("dataline"):
+            file2.write(line2)
+file2.close()
 
-
+#making dictionary. row number 1 and 2 are keys all together and
+#row number 3 nd 4 are the values all together
 import csv
 with open("output_1.tsv", "r") as file1:
-    outer_dict_1={}
-    inner_dict_1={}
+    dict_1={}
     csvreader_1=csv.reader(file1, delimiter='\t')
     for row in csvreader_1:
-        inner_dict_1[row[2]] = [row[3], row[4]]
-        outer_dict_1[row[1]] = inner_dict_1
+        dict_1[row[1], row[2]] = [row[3], row[4]]
 
-    print outer_dict_1
-
-with open("output_2.tsv", "r") as file2:
-    outer_dict_2={}
-    inner_dict_2={}
-    csvreader_2=csv.reader(file2, delimiter='\t')
+    # print(dict_1)
+print("***********************")
+with open("output_2.tsv", "r") as file4:
+    dict_2={}
+    csvreader_2=csv.reader(file4, delimiter='\t')
     for row in csvreader_2:
-        inner_dict_2[row[2]] = [row[3], row[4]]
-        outer_dict_2[row[1]] = inner_dict_2
+        dict_2[row[1], row[2]] = [row[3], row[4]]
+    # print(dict_2)
 
-    print outer_dict_2
+# x=set(dict_1)
+# print(x) #just printing the keys
 
-#
-#
-# # outer_dict_1 = {
-# # "top_unexpected_count" :
-# #     {
-# #         "cycle.1236": [100,34],
-# #         "cycle.32644": [43,90]
-# #     },
-# # "chastity_passed":
-# #     {
-# #         "cycle.1236": [80,76],
-# #         "cycle.32644": [65,56]
-# #     },
-# #     "matched_host_genome": {
-# #         "sdglpod.1236": [80,76],
-# #         "rlkt.32644": [65,56]
-# #     }
-# #
-# # }
-# #
-# # outer_dict_2 = {
-# # "top_unexpected_count" :
-# #     {
-# #         "cycle.1236": [32,43],
-# #         "cycle.9606": [78,59]
-# #     },
-# # "chastity_passed":
-# #     {
-# #         "cycle.1236": [86,66],
-# #         "cycle.9606": [91,76]
-# #     }
-# # }
-# # Iterate through dict
-# common_set = nil  #nil means empty of anything
-for outer_key in outer_dict_1:
-    file_1_inner_dict_1 = outer_dict_1[outer_key] #outer key example : chastity_passed
-    file_1_set_1 = set(file_1_inner_dict_1)
+set_dict_1=set(dict_1)#print only keys
+set_dict_2=set(dict_2)
+for name in set_dict_1.intersection(set_dict_2):#print common keys
+    print(name, dict_1[name], dict_2[name])#common values
+    a = dict_1[name]# common values
+    b = dict_2[name]#common values
 
-    if outer_key in outer_dict_2:
-        file_2_inner_dict_2 = outer_dict_2[outer_key]
-        file_2_set_2 = set(file_2_inner_dict_2)
-        common_set = file_1_set_1.intersection(file_2_set_2)  #intersection gives you common inner keys
-        print (outer_key)
+    a2= (map(float, a))#str to float
+    b2= (map(float, b))
+    # print(a)
+    # print(b)
+    print(map(float.__sub__, a2, b2))#subtraction of common values
 
-    # inner_dict_1 = outer_dict_1[k]
-    # ===========
-# myRDP = { 'Actinobacter': 'GATCGA...TCA', 'subtilus sp.': 'ATCGATT...ACT' }
-# myNames = { 'Actinobacter': '8924342' }
-#
-# rdpSet = set(myRDP)
-# namesSet = set(myNames)
-# for name in rdpSet.intersection(namesSet):
-#     print name, myNames[name]
-# =================
+    # print(a2[1])
+    # print(len(a2))
 
-#
-# val = dict["naz"]
-# val["name"]
-
-# dict =	{
-# "naz":
-#     {
-#         "name": "Nazanin",
-#         "location": "Vancouver",
-#         "likes": 346,
-#         "previous_location": ["London", "Sydney"]
-#     },
-# "sel":
-#     {
-#         "name": "Selva",
-#         "location": "New West",
-#         "previous_location": ["Spain", "France"]
-#     }
-# }
-# print dict
-# print "========================"
+    # clean up dismal ...
+    #print out as individual values....
+    #calculate the precentage of the difference
