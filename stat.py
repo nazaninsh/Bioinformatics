@@ -15,57 +15,63 @@ with open("stats.q3.txt", "r") as f2:
 file2.close()
 
 #making dictionary. row number 1 and 2 are keys all together and
-#row number 3 nd 4 are the values all together
+#row number 3 and 4 and sub of 5 and 6 are the values all together(3 values)
 import csv
 with open("output_q2.tsv", "r") as file1:
-    dict_1={}
-    csvreader_1=csv.reader(file1, delimiter='\t')
-    for row in csvreader_1:
-        dict_1[row[1], row[2]] = [row[3], row[4], row[5], row[6]]
+    dict_q2={}
+    csvreader_q2=csv.reader(file1, delimiter='\t')
+    for row in csvreader_q2:
+        dict_q2[row[1], row[2]] = [row[3], row[4], float(row[5]) + float(row[6])]
 
-    # print(dict_1)
+    # print(dict_q2)
 print("***********************")
 with open("output_q3.tsv", "r") as file4:
-    dict_2={}
-    csvreader_2=csv.reader(file4, delimiter='\t')
-    for row in csvreader_2:
-        dict_2[row[1], row[2]] = [row[3], row[4], row[5], row[6]]
-    # print(dict_2)
+    dict_q3={}
+    csvreader_q3=csv.reader(file4, delimiter='\t')
+    for row in csvreader_q3:
+        dict_q3[row[1], row[2]] = [row[3], row[4], float(row[5]) + float(row[6])]
+    # print(dict_q3)
 
 # x=set(dict_1)
 # print(x) #just printing the keys
+# f = open("result.tsv", "w")
+set_dict_q2=set(dict_q2)#print only keys
+set_dict_q3=set(dict_q3)
+for common_keys in set_dict_q2.intersection(set_dict_q3):#print common keys
+    print(common_keys, dict_q2[common_keys], dict_q3[common_keys])#common keys and common values for each quarter
 
-set_dict_1=set(dict_1)#print only keys
-set_dict_2=set(dict_2)
-for common_keys in set_dict_1.intersection(set_dict_2):#print common keys
-    # print(common_keys, dict_1[common_keys], dict_2[common_keys])#common keys and common values
-    a = dict_1[common_keys]# common values
-    b = dict_2[common_keys]#common values
-
-    a2= (map(float, a))#str to float
-    b2= (map(float, b))
+    # common_val_q2= (map(float, dict_q2[common_keys]))# common values and also turning str to float
+    # common_val_q3= (map(float, dict_q3[common_keys]))#common values and also turning str to float
+    # print(common_val_q2)
+    # print(common_val_q3)
 
 
-    for i in range(len(b2)):
-        diff=b2[i]-a2[i]
+    for i in range(len(common_val_q3)):
+        diff=common_val_q3[i]-common_val_q2[i]
         round= ("%0.2f"%diff)
         increase_percent=0
-        if a2[i]!=0:
-            increase_percent= diff/a2[i]*100
+        if common_val_q2[i]!=0:
+            increase_percent= diff/common_val_q2[i]*100
         if i==0 and (increase_percent > 10 or increase_percent < -10):
-            print("diff="+str(common_keys)+":"+" 95%ile:"+str(diff)+" round="+str(round)+ " percent="+str("%0.2f"%increase_percent))
+            f.write("diff=\t" + "5%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + str(common_keys)+ "\n")
 
         if i==1 and (increase_percent > 10 or increase_percent < -10):
-            print("diff="+str(common_keys)+":"+" 5%ile:"+str(diff)+" round="+str(round)+ " percent="+str("%0.2f"%increase_percent))
-
-
+            f.write("diff=\t" + "95%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent + str(common_keys))+ "\n")
+f.close()
 
     #the original value is diff=0.034
     #The target value is matched_target_genome::cycle.151~protocol.SLX-Genome_Shotgun_HiSeqX~taxon_id.9606::95%ile::diff=0.034
     #print the percentage that are bigger than 3% on small file and then use it on the big file- and 10% on the big file..
-
-# calculate the number of libraries by adding 5% count and 95% count
+    # calculate the number of libraries by adding 5% count and 95% count
 #print the number of lib at the end of the line with count=
-#change the print out order: the numers first, then the metrics name, then the combination string
+#change the print out order: the numbers first, then the metrics name, then the combination string
 #change it to tab delimited file
 #filter out all the differences that have lib count of more than that 10
+# how the numbers are changing over time between diff quarters..
+
+#use CSV writer to create a tab delimited file instead of manually!!
+#Git Toturial
+
+#add the 5%ile count to the 95%ile count to get the total number of lib in that quarter for each line
+#calculate the percent diff in the metrics- ( already done)
+# only print out the diff if both total number of lib( in 2 quarters) is greatre than 10
