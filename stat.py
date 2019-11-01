@@ -76,30 +76,5 @@ result.close()
 result_2.close()
 
 
-#print the percentage that are bigger than 3% on small file and then use it on the big file- and 10% on the big file..
-# calculate the number of libraries by adding 5% count and 95% count
-#print the number of lib at the end of the line with count=
-#change the print out order: the numbers first, then the metrics name, then the combination string
-#change it to tab delimited file
-#filter out all the differences that have lib count of more than that 10
-# how the numbers are changing over time between diff quarters..
 
-#use CSV writer to create a tab delimited file instead of manually!!
-#Git Toturial
 
-#add the 5%ile count to the 95%ile count to get the total number of lib in that quarter for each line
-#calculate the percent diff in the metrics- ( already done)
-# only print out the diff if both total number of lib( in 2 quarters) is greatre than 10
-
-#for Aug21:
-#1. the count of lib in each quarter in the result file
-#2. remove 5%ile and 95%ile
-#3. do not display if metric is , total_reads , chastity_passed and chastity_passed_no_reagent
-#4. rename round to 5%ile_round and 95%ile_round
-
-#for sep
-#making a test file by myself to confirm the calculation
-#1. chnage number of lib to variable
-#2. change percent diff to a variable as well
-#3. make the above variable into a command line argument using argv
-#metric and dif percentage tab delimited
