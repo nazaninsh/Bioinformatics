@@ -38,7 +38,7 @@ with open("output_2.tsv", "r") as file4:
 set_dict_1=set(dict_1)#print only keys
 set_dict_2=set(dict_2)
 for common_keys in set_dict_1.intersection(set_dict_2):#print common keys
-    print(common_keys, dict_1[common_keys], dict_2[common_keys])#common values
+    # print(common_keys, dict_1[common_keys], dict_2[common_keys])#common values
     a = dict_1[common_keys]# common values
     b = dict_2[common_keys]#common values
 
@@ -65,15 +65,15 @@ for common_keys in set_dict_1.intersection(set_dict_2):#print common keys
         # print("percent="+str("%0.2f"%increase_percent))#labeling the outcome
 
 
-    for i in range(len(b2)-0):
+    for i in range(len(b2)):
         diff=b2[i]-a2[i]
         round= ("%0.2f"%diff)
         increase_percent= diff/a2[i]*100
-        if i==0:
+        if i==0 and increase_percent > 3:
             print("diff="+str(common_keys)+":"+"95%ile:"+str(diff))
             print("round="+str(round))
             print("percent="+str("%0.2f"%increase_percent))
-        else:
+        if i==1 and increase_percent > 3:
             print("diff="+str(common_keys)+":"+"5%ile:"+str(diff))
             print("round="+str(round))
             print("percent="+str("%0.2f"%increase_percent))
