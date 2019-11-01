@@ -14,43 +14,24 @@ with open("stats-simple.q3.txt", "r") as f2:
             file2.write(line2)
 file2.close()
 
-#making dictionary. row number 1 and 2 are keys all together and
-#row number 3 nd 4 are the values all together
+#making inner dict and outer dict
 import csv
 with open("output_1.tsv", "r") as file1:
-    dict_1={}
+    outer_dict_1={}
+    inner_dict_1={}
     csvreader_1=csv.reader(file1, delimiter='\t')
     for row in csvreader_1:
-        dict_1[row[1], row[2]] = [row[3], row[4]]
+        inner_dict_1[row[2]] = [row[3], row[4]]#values for inner dict
+        outer_dict_1[row[1]] = inner_dict_1
 
-    # print(dict_1)
-print("***********************")
+    print(outer_dict_1)
+
 with open("output_2.tsv", "r") as file4:
-    dict_2={}
+    outer_dict_2={}
+    inner_dict_2={}
     csvreader_2=csv.reader(file4, delimiter='\t')
     for row in csvreader_2:
-        dict_2[row[1], row[2]] = [row[3], row[4]]
-    # print(dict_2)
+        inner_dict_2[row[2]] = [row[3], row[4]]
+        outer_dict_2[row[1]] = inner_dict_2
 
-# x=set(dict_1)
-# print(x) #just printing the keys
-
-set_dict_1=set(dict_1)#print only keys
-set_dict_2=set(dict_2)
-for name in set_dict_1.intersection(set_dict_2):#print common keys
-    print(name, dict_1[name], dict_2[name])#common values
-    a = dict_1[name]# common values
-    b = dict_2[name]#common values
-
-    a2= (map(float, a))#str to float
-    b2= (map(float, b))
-    # print(a)
-    # print(b)
-    print(map(float.__sub__, a2, b2))#subtraction of common values
-
-    # print(a2[1])
-    # print(len(a2))
-
-    # clean up dismal ...
-    #print out as individual values....
-    #calculate the precentage of the difference
+    print(outer_dict_2)
