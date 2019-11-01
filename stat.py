@@ -33,17 +33,17 @@ with open("output_q3.tsv", "r") as file4:
     # print(dict_q3)
 
 # x=set(dict_1)
-# print(x) #just printing the keys
-# f = open("result.tsv", "w")
+    # print(x) #just printing the keys
+result= open("result.tsv", "w")
 set_dict_q2=set(dict_q2)#print only keys
 set_dict_q3=set(dict_q3)
 for common_keys in set_dict_q2.intersection(set_dict_q3):#print common keys
-    print(common_keys, dict_q2[common_keys], dict_q3[common_keys])#common keys and common values for each quarter
+    (common_keys, dict_q2[common_keys], dict_q3[common_keys])#common keys and common values for each quarter
 
-    # common_val_q2= (map(float, dict_q2[common_keys]))# common values and also turning str to float
-    # common_val_q3= (map(float, dict_q3[common_keys]))#common values and also turning str to float
-    # print(common_val_q2)
-    # print(common_val_q3)
+    common_val_q2= (map(float, dict_q2[common_keys]))# common values and also turning str to float
+    common_val_q3= (map(float, dict_q3[common_keys]))#common values and also turning str to float
+    print(common_val_q2)
+    print(common_val_q3)
 
 
     for i in range(len(common_val_q3)):
@@ -52,17 +52,16 @@ for common_keys in set_dict_q2.intersection(set_dict_q3):#print common keys
         increase_percent=0
         if common_val_q2[i]!=0:
             increase_percent= diff/common_val_q2[i]*100
-        if i==0 and (increase_percent > 10 or increase_percent < -10):
-            f.write("diff=\t" + "5%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + str(common_keys)+ "\n")
+        if (common_val_q2[2] > 10 and common_val_q3[2] > 10):
+            if i==0  and (increase_percent > 10 or increase_percent < -10):
+                result.write("diff=\t" + "5%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+            if i==1 and (increase_percent > 10 or increase_percent < -10):
+                result.write("diff=\t" + "95%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent) + "\t\t" + str(common_keys)+ "\n")
+result.close()
 
-        if i==1 and (increase_percent > 10 or increase_percent < -10):
-            f.write("diff=\t" + "95%ile:" + str(diff) + "\tround=" + str(round) + "\tpercent=" + str("%0.2f"%increase_percent + str(common_keys))+ "\n")
-f.close()
 
-    #the original value is diff=0.034
-    #The target value is matched_target_genome::cycle.151~protocol.SLX-Genome_Shotgun_HiSeqX~taxon_id.9606::95%ile::diff=0.034
-    #print the percentage that are bigger than 3% on small file and then use it on the big file- and 10% on the big file..
-    # calculate the number of libraries by adding 5% count and 95% count
+#print the percentage that are bigger than 3% on small file and then use it on the big file- and 10% on the big file..
+# calculate the number of libraries by adding 5% count and 95% count
 #print the number of lib at the end of the line with count=
 #change the print out order: the numbers first, then the metrics name, then the combination string
 #change it to tab delimited file
@@ -75,3 +74,9 @@ f.close()
 #add the 5%ile count to the 95%ile count to get the total number of lib in that quarter for each line
 #calculate the percent diff in the metrics- ( already done)
 # only print out the diff if both total number of lib( in 2 quarters) is greatre than 10
+
+#for Aug21:
+#1. the count of lib in each quarter in the result file1
+#2. remove 5%ile and 95%ile
+#3. do not display if metric is , total_reads , chastity_passed and chastity_passed_no_reagent
+#4. rename round to 5%ile_round and 95%ile_round
